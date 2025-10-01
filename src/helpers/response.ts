@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import type { Request, RequestHandler, Response } from "express";
 import type { ResponseObj } from "./types";
 
 export function makeResponseObj(
@@ -15,7 +15,7 @@ export function send404Error(req: Request, res: Response): Response {
   return res.status(404).json(resObj);
 }
 
-export function send405Error(allowedMethods: string[]): Function {
+export function send405Error(allowedMethods: string[]): RequestHandler {
   let allowHeaderValue = "";
 
   for (const allowedMethod of allowedMethods) {
