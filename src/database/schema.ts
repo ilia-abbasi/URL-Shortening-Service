@@ -5,7 +5,7 @@ export const shortUrlsTable = pgTable("short_urls", {
   shortCode: varchar("short_code", { length: 6 }).notNull().unique(),
   url: varchar("url", { length: 512 }).notNull(),
   key: varchar("key", { length: 32 }).notNull(),
-  views: integer("view").notNull().default(0),
+  views: integer("views").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
