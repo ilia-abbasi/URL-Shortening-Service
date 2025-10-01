@@ -2,11 +2,15 @@ import express from "express";
 import type { Application } from "express";
 import morgan from "morgan";
 
+import mainRouter from "../routes/main";
+
 export function createApp(): Application {
   const app: Application = express();
 
   app.use(morgan(":method :url :status - :response-time ms"));
   app.use(express.json());
+
+  app.use(mainRouter);
 
   return app;
 }
