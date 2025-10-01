@@ -9,6 +9,8 @@
     "dev": "nodemon --exec tsx ./src/index.ts",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "generate": "npx drizzle-kit generate --name=init",
+    "migrate": "npx drizzle-kit migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

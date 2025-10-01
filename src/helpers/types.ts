@@ -1,3 +1,5 @@
+import type { shortUrlsTable } from "../database/schema";
+
 export interface ResponseObj {
   success: boolean;
   message: string;
@@ -5,3 +7,5 @@ export interface ResponseObj {
 }
 
 export type AppSection = "server" | "database";
+
+export type ShortUrl = typeof shortUrlsTable.$inferInsert;
