@@ -9,3 +9,5 @@ export const urlValidator = () =>
     .withMessage("url must be a string")
     .isURL()
     .withMessage("url is not valid");
+
+export const createShortUrlValidator = () => [urlValidator()];

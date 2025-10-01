@@ -1,5 +1,17 @@
 import type { Request, Response } from "express";
+import { matchedData, validationResult } from "express-validator";
+import { makeResponseObj } from "../helpers/response";
 
 export function createShortUrl(req: Request, res: Response): Response {
-  return res.send("yeah, nah");
+  const validationError = validationResult(req).array()[0];
+
+  if (validationError) {
+    const resObj = makeResponseObj(false, validationError.msg);
+
+    return res.status(400).json(resObj);
+  }
+
+  const { url } = matchedData(req);
+
+  return res.send(":)");
 }
