@@ -3,3 +3,5 @@ export interface ResponseObj {
   message: string;
   data: object;
 }
+
+export type AppSection = "server" | "database";
