@@ -1,4 +1,4 @@
-import "./helpers/load_env";
+import "dotenv/config";
 
 import type { Application } from "express";
 import { createApp } from "./app/app";
