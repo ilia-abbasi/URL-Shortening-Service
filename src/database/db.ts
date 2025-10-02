@@ -1,5 +1,5 @@
 import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
-import type { Pool } from "pg";
+import { Pool } from "pg";
 
 export let db: NodePgDatabase<Record<string, never>> & {
   $client: Pool;

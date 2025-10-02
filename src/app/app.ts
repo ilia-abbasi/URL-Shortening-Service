@@ -1,8 +1,8 @@
 import express from "express";
-import type { Application } from "express";
+import { Application } from "express-serve-static-core";
 import morgan from "morgan";
 
-import mainRouter from "../routes/main.ts";
+import mainRouter from "../routes/main.js";
 
 export function createApp(): Application {
   const app: Application = express();

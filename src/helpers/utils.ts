@@ -3,8 +3,8 @@ import {
   KEY_SIZE,
   SHORT_CODE_CHARSET_SIZE,
   SHORT_CODE_SIZE,
-} from "./consts.ts";
-import type { AppSection } from "./types.ts";
+} from "./consts.js";
+import { AppSection } from "./types.js";
 
 const chars62 =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

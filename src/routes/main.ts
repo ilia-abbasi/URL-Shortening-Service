@@ -1,7 +1,7 @@
 import express from "express";
 
-import shortenRouter from "./shorten.ts";
-import { send404Error } from "../helpers/response.ts";
+import shortenRouter from "./shorten.js";
+import { send404Error } from "../helpers/response.js";
 
 const router = express.Router();
 

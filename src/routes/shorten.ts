@@ -1,7 +1,7 @@
 import express from "express";
 
-import { createShortUrl } from "../controllers/shorten.ts";
-import { createShortUrlValidator } from "../helpers/validation.ts";
+import { createShortUrl } from "../controllers/shorten.js";
+import { createShortUrlValidator } from "../helpers/validation.js";
 
 const router = express.Router();
 

@@ -1,5 +1,6 @@
-import type { Request, RequestHandler, Response } from "express";
-import type { ResponseObj } from "./types.ts";
+import { Request, RequestHandler, Response } from "express-serve-static-core";
+
+import { ResponseObj } from "./types.js";
 
 export function makeResponseObj(
   success: boolean,

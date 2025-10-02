@@ -1,6 +1,7 @@
-import type { Request, Response } from "express";
+import { Request, Response } from "express-serve-static-core";
 import { matchedData, validationResult } from "express-validator";
-import { makeResponseObj } from "../helpers/response.ts";
+
+import { makeResponseObj } from "../helpers/response.js";
 
 export function createShortUrl(req: Request, res: Response): Response {
   const validationError = validationResult(req).array()[0];
