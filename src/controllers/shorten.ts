@@ -50,3 +50,11 @@ export async function createShortUrl(
 
   return res.status(201).json(resObj);
 }
+
+export async function getUrl(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> {
+  //
+}
