@@ -50,7 +50,6 @@ export function generalErrorHandler(
   res: Response,
   _next: NextFunction
 ): Response {
-  customLog("server", `[ERROR] ${err.message}`);
   customLog("server", err.stack!);
 
   const resObj = makeResponseObj(

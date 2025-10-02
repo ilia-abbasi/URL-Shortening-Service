@@ -11,7 +11,8 @@
     "build:watch": "tsc --watch",
     "generate": "drizzle-kit generate --name=init",
     "migrate": "drizzle-kit migrate",
-    "test": "jest"
+    "test": "jest",
+    "test:units": "jest --testPathPatterns=./src/__tests__/units"
   },
   "repository": {
     "type": "git",

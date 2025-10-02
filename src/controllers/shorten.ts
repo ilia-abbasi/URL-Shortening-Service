@@ -36,10 +36,13 @@ export async function createShortUrl(
     }
 
     fails++;
-    customLog("database", `Possible unique short code collision (${fails})`);
+    customLog("database", `Possible short code collision (${fails})`);
 
     if (fails > 4) {
-      return next(`Too many collisions, dropping with ${fails} fails`);
+      const error = new Error(
+        `Too many collisions, dropping with ${fails} fails`
+      );
+      return next(error);
     }
   }
 
