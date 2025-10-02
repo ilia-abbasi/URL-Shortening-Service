@@ -1,6 +1,12 @@
-import { Request, RequestHandler, Response } from "express-serve-static-core";
+import {
+  NextFunction,
+  Request,
+  RequestHandler,
+  Response,
+} from "express-serve-static-core";
 
 import { ResponseObj } from "./types.js";
+import { customLog } from "./utils.js";
 
 export function makeResponseObj(
   success: boolean,
@@ -40,12 +46,12 @@ export function send405Error(allowedMethods: string[]): RequestHandler {
 
 export function generalErrorHandler(
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: Function
+  _next: NextFunction
 ): Response {
-  console.log(`An error occurred: ${err.message}`);
-  console.log(err.stack);
+  customLog("server", `[ERROR] ${err.message}`);
+  customLog("server", err.stack!);
 
   const resObj = makeResponseObj(
     false,

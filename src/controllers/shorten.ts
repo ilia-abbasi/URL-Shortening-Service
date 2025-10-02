@@ -1,4 +1,4 @@
-import { Request, Response } from "express-serve-static-core";
+import { NextFunction, Request, Response } from "express-serve-static-core";
 import { matchedData, validationResult } from "express-validator";
 
 import { makeResponseObj } from "../helpers/response.js";
@@ -8,8 +8,9 @@ import { insertShortUrl } from "../database/db.js";
 
 export async function createShortUrl(
   req: Request,
-  res: Response
-): Promise<Response> {
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> {
   const validationError = validationResult(req).array()[0];
 
   if (validationError) {
@@ -36,6 +37,10 @@ export async function createShortUrl(
 
     fails++;
     customLog("database", `Possible unique short code collision (${fails})`);
+
+    if (fails > 4) {
+      return next(`Too many collisions, dropping with ${fails} fails`);
+    }
   }
 
   const resObj = makeResponseObj(true, "Created short url", dbResponse.result);
