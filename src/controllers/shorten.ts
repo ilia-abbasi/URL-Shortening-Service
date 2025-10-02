@@ -4,7 +4,7 @@ import { matchedData, validationResult } from "express-validator";
 import { makeResponseObj } from "../helpers/response.js";
 import { DatabaseResponse, ShortUrl } from "../helpers/types.js";
 import { customLog, generateKey, generateShortCode } from "../helpers/utils.js";
-import { insertShortUrl } from "../database/db.js";
+import * as database from "../database/db.js";
 
 export async function createShortUrl(
   req: Request,
@@ -30,7 +30,7 @@ export async function createShortUrl(
       key: generateKey(),
     };
 
-    dbResponse = await insertShortUrl(shortUrl);
+    dbResponse = await database.insertShortUrl(shortUrl);
     if (!dbResponse.error) {
       break;
     }
@@ -56,5 +56,28 @@ export async function getUrl(
   res: Response,
   next: NextFunction
 ): Promise<Response | void> {
-  //
+  const validationError = validationResult(req).array()[0];
+
+  if (validationError) {
+    const resObj = makeResponseObj(false, validationError.msg);
+
+    return res.status(400).json(resObj);
+  }
+
+  const shortCode: string = matchedData(req).shortCode;
+
+  const dbResponse = await database.getUrl(shortCode);
+  if (dbResponse.error) {
+    return next(dbResponse.error);
+  }
+
+  if (!dbResponse.result) {
+    const resObj = makeResponseObj(false, "Not found");
+
+    return res.status(404).json(resObj);
+  }
+
+  const resObj = makeResponseObj(true, "Successful", dbResponse.result);
+
+  return res.status(200).json(resObj);
 }

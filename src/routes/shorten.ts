@@ -1,6 +1,6 @@
 import express from "express";
 
-import { createShortUrl } from "../controllers/shorten.js";
+import { createShortUrl, getUrl } from "../controllers/shorten.js";
 import {
   createShortUrlValidator,
   getUrlValidator,
@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/", createShortUrlValidator(), createShortUrl);
 
-router.get("/:shortCode", getUrlValidator(), getUrlValidator);
+router.get("/:shortCode", getUrlValidator(), getUrl);
 
 export default router;

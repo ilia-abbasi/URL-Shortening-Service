@@ -13,7 +13,7 @@ export interface DatabaseResponse {
 
 export type DatabaseError = Error | null;
 
-export type DatabaseResult = Object | Object[] | null;
+export type DatabaseResult = Object | Object[] | null | undefined;
 
 export type AppSection = "server" | "database";
 
