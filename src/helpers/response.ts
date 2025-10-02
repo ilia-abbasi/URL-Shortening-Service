@@ -5,8 +5,11 @@ import { ResponseObj } from "./types.js";
 export function makeResponseObj(
   success: boolean,
   message: string,
-  data: object = {}
+  data: object | null = {}
 ): ResponseObj {
+  if (!data) {
+    data = {};
+  }
   return { success, message, data };
 }
 
