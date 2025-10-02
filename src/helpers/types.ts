@@ -1,4 +1,4 @@
-import type { shortUrlsTable } from "../database/schema";
+import type { shortUrlsTable } from "../database/schema.ts";
 
 export interface ResponseObj {
   success: boolean;

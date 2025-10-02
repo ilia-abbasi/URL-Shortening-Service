@@ -1,5 +1,5 @@
 import type { Request, RequestHandler, Response } from "express";
-import type { ResponseObj } from "./types";
+import type { ResponseObj } from "./types.ts";
 
 export function makeResponseObj(
   success: boolean,
