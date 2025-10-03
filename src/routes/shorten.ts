@@ -23,4 +23,6 @@ router.get("/:shortCode", getUrlValidator(), getUrl);
 router.put("/:shortCode", updateUrlValidator(), updateUrl);
 router.delete("/:shortCode", deleteUrlValidator(), deleteUrl);
 
+router.get("/:shortCode/stats", getUrlValidator());
+
 export default router;

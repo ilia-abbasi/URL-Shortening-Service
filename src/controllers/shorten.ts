@@ -146,3 +146,20 @@ export async function deleteUrl(
 
   return res.sendStatus(204);
 }
+
+export async function getUrlStats(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> {
+  const validationError = validationResult(req).array()[0];
+
+  if (validationError) {
+    const resObj = makeResponseObj(false, validationError.msg);
+
+    return res.status(400).json(resObj);
+  }
+
+  const { shortCode, key }: { shortCode: string; key: string } =
+    matchedData(req);
+}

@@ -41,3 +41,8 @@ export const updateUrlValidator = () => [
 ];
 
 export const deleteUrlValidator = () => [shortCodeValidator(), keyValidator()];
+
+export const getUrlStatsValidator = () => [
+  shortCodeValidator(),
+  keyValidator(),
+];
