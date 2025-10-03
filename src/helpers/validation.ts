@@ -46,3 +46,5 @@ export const getUrlStatsValidator = () => [
   shortCodeValidator(),
   keyValidator(),
 ];
+
+export const redirectUrlValidator = () => [shortCodeValidator()];

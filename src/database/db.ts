@@ -137,3 +137,23 @@ export async function getUrlStats(
     return makeDatabaseResponse(null, error as Error);
   }
 }
+
+export async function redirectUrl(
+  shortCode: string
+): Promise<DatabaseResponse> {
+  try {
+    const result = await db
+      .update(shortUrlsTable)
+      .set({
+        views: sql`${shortUrlsTable.views} + 1`,
+      })
+      .where(eq(shortUrlsTable.shortCode, shortCode))
+      .returning({
+        url: shortUrlsTable.url,
+      });
+
+    return makeDatabaseResponse(result[0], null);
+  } catch (error) {
+    return makeDatabaseResponse(null, error as Error);
+  }
+}
