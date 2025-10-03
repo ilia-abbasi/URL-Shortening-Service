@@ -16,6 +16,6 @@ export type DatabaseError = Error | null;
 
 export type DatabaseResult = QueryResult | Object | Object[] | null | undefined;
 
-export type AppSection = "server" | "database";
+export type Tag = "server" | "database" | "test" | "error";
 
 export type ShortUrl = typeof shortUrlsTable.$inferInsert;

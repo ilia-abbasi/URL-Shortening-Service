@@ -4,14 +4,23 @@ import {
   SHORT_CODE_CHARSET_SIZE,
   SHORT_CODE_SIZE,
 } from "./consts.js";
-import { AppSection } from "./types.js";
+import { Tag } from "./types.js";
 
 const chars62 =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const chars16 = "0123456789abcdef";
 
-export function customLog(section: AppSection, text: string): void {
-  console.log(`[${section.toUpperCase()}] ${text}`);
+export function customLog(tags: Tag | Tag[], text: string): void {
+  if (typeof tags === "string") {
+    tags = [tags];
+  }
+
+  let tagString = "";
+  for (const tag of tags) {
+    tagString = `${tagString}[${tag.toUpperCase()}] `;
+  }
+
+  console.log(`${tagString}${text}`);
 }
 
 export function generateShortCode(): string {

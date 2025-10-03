@@ -5,6 +5,7 @@ import {
   DatabaseResponse,
   DatabaseResult,
   ShortUrl,
+  Tag,
 } from "../helpers/types.js";
 import { shortUrlsTable } from "./schema.js";
 import { customLog } from "../helpers/utils.js";
@@ -14,10 +15,15 @@ let db: NodePgDatabase<Record<string, never>> & {
   $client: Pool;
 };
 
-export function connectDb() {
+export function connectDb(test = false) {
+  const tags: Tag[] = ["database"];
+  if (test) {
+    tags.push("test");
+  }
+
   db = drizzle(process.env.DATABASE_URL!);
 
-  customLog("database", "Connected via drizzle");
+  customLog(tags, "Connected via drizzle");
 }
 
 function makeDatabaseResponse(
