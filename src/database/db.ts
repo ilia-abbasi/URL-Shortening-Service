@@ -89,3 +89,23 @@ export async function updateUrl(
     return makeDatabaseResponse(null, error as Error);
   }
 }
+
+export async function deleteUrl(
+  shortCode: string,
+  key: string
+): Promise<DatabaseResponse> {
+  try {
+    const result = await db
+      .delete(shortUrlsTable)
+      .where(
+        and(
+          eq(shortUrlsTable.shortCode, shortCode),
+          eq(shortUrlsTable.key, key)
+        )
+      );
+
+    return makeDatabaseResponse(result, null);
+  } catch (error) {
+    return makeDatabaseResponse(null, error as Error);
+  }
+}

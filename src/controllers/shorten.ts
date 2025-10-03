@@ -132,4 +132,17 @@ export async function deleteUrl(
 
   const { shortCode, key }: { shortCode: string; key: string } =
     matchedData(req);
+
+  const dbResponse = await database.deleteUrl(shortCode, key);
+  if (dbResponse.error) {
+    return next(dbResponse.error);
+  }
+
+  if (!dbResponse.result) {
+    const resObj = makeResponseObj(false, "No short url exists with this key");
+
+    return res.status(404).json(resObj);
+  }
+
+  return res.status(204);
 }

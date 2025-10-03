@@ -1,3 +1,4 @@
+import { QueryResult } from "pg";
 import { shortUrlsTable } from "../database/schema.js";
 
 export interface ResponseObj {
@@ -13,7 +14,7 @@ export interface DatabaseResponse {
 
 export type DatabaseError = Error | null;
 
-export type DatabaseResult = Object | Object[] | null | undefined;
+export type DatabaseResult = QueryResult | Object | Object[] | null | undefined;
 
 export type AppSection = "server" | "database";
 

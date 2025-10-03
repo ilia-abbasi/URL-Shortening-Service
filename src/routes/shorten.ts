@@ -1,6 +1,11 @@
 import express from "express";
 
-import { createShortUrl, getUrl, updateUrl } from "../controllers/shorten.js";
+import {
+  createShortUrl,
+  deleteUrl,
+  getUrl,
+  updateUrl,
+} from "../controllers/shorten.js";
 import {
   createShortUrlValidator,
   deleteUrlValidator,
@@ -16,6 +21,6 @@ router.post("/", createShortUrlValidator(), createShortUrl);
 
 router.get("/:shortCode", getUrlValidator(), getUrl);
 router.put("/:shortCode", updateUrlValidator(), updateUrl);
-router.delete("/:shortCode", deleteUrlValidator());
+router.delete("/:shortCode", deleteUrlValidator(), deleteUrl);
 
 export default router;
