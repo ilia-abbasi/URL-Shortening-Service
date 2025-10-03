@@ -77,7 +77,7 @@ export async function getUrl(
     return res.status(404).json(resObj);
   }
 
-  const resObj = makeResponseObj(true, "Successful", dbResponse.result);
+  const resObj = makeResponseObj(true, "Got url", dbResponse.result);
 
   return res.status(200).json(resObj);
 }
@@ -112,7 +112,11 @@ export async function updateUrl(
     return res.status(404).json(resObj);
   }
 
-  const resObj = makeResponseObj(true, "Successful", dbResponse.result);
+  const resObj = makeResponseObj(
+    true,
+    "Successfully updated url",
+    dbResponse.result
+  );
 
   return res.status(200).json(resObj);
 }
@@ -162,4 +166,19 @@ export async function getUrlStats(
 
   const { shortCode, key }: { shortCode: string; key: string } =
     matchedData(req);
+
+  const dbResponse = await database.getUrlStats(shortCode, key);
+  if (dbResponse.error) {
+    return next(dbResponse.error);
+  }
+
+  if (!dbResponse.result) {
+    const resObj = makeResponseObj(false, "No short url exists with this key");
+
+    return res.status(404).json(resObj);
+  }
+
+  const resObj = makeResponseObj(true, "Got stats", dbResponse.result);
+
+  return res.status(200).json(resObj);
 }

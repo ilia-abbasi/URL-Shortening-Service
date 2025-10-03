@@ -109,3 +109,31 @@ export async function deleteUrl(
     return makeDatabaseResponse(null, error as Error);
   }
 }
+
+export async function getUrlStats(
+  shortCode: string,
+  key: string
+): Promise<DatabaseResponse> {
+  try {
+    const result = await db
+      .select({
+        id: shortUrlsTable.id,
+        url: shortUrlsTable.url,
+        shortCode: shortUrlsTable.shortCode,
+        createdAt: shortUrlsTable.createdAt,
+        updatedAt: shortUrlsTable.updatedAt,
+        views: shortUrlsTable.views,
+      })
+      .from(shortUrlsTable)
+      .where(
+        and(
+          eq(shortUrlsTable.shortCode, shortCode),
+          eq(shortUrlsTable.key, key)
+        )
+      );
+
+    return makeDatabaseResponse(result[0], null);
+  } catch (error) {
+    return makeDatabaseResponse(null, error as Error);
+  }
+}
