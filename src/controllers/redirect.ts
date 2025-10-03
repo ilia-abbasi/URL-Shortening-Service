@@ -19,4 +19,19 @@ export async function redirectUrl(
   }
 
   const shortCode: string = matchedData(req).shortCode;
+
+  const dbResponse = await database.redirectUrl(shortCode);
+  if (dbResponse.error) {
+    return next(dbResponse.error);
+  }
+
+  if (!dbResponse.result) {
+    const resObj = makeResponseObj(false, "url not found");
+
+    return res.status(404).json(resObj);
+  }
+
+  const { url } = dbResponse.result as ShortUrl;
+
+  res.status(301).redirect(url);
 }
