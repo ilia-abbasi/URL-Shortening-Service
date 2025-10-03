@@ -11,5 +11,5 @@ const PORT = process.env.PORT || 4000;
 connectDb();
 
 app.listen(PORT, (): void => {
-  customLog("server", `Listening on port ${PORT} ...`);
+  customLog("server", `Listening on port ${PORT}`);
 });

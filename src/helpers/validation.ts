@@ -34,4 +34,8 @@ export const createShortUrlValidator = () => [urlValidator()];
 
 export const getUrlValidator = () => [shortCodeValidator()];
 
-export const updateUrlValidator = () => [shortCodeValidator(), keyValidator()];
+export const updateUrlValidator = () => [
+  urlValidator(),
+  shortCodeValidator(),
+  keyValidator(),
+];

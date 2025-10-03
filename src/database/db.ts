@@ -8,7 +8,7 @@ import {
 } from "../helpers/types.js";
 import { shortUrlsTable } from "./schema.js";
 import { customLog } from "../helpers/utils.js";
-import { DrizzleQueryError, eq } from "drizzle-orm";
+import { and, DrizzleQueryError, eq, sql } from "drizzle-orm";
 
 let db: NodePgDatabase<Record<string, never>> & {
   $client: Pool;
@@ -51,6 +51,38 @@ export async function getUrl(shortCode: string): Promise<DatabaseResponse> {
       })
       .from(shortUrlsTable)
       .where(eq(shortUrlsTable.shortCode, shortCode));
+
+    return makeDatabaseResponse(result[0], null);
+  } catch (error) {
+    return makeDatabaseResponse(null, error as Error);
+  }
+}
+
+export async function updateUrl(
+  shortCode: string,
+  key: string,
+  url: string
+): Promise<DatabaseResponse> {
+  try {
+    const result = await db
+      .update(shortUrlsTable)
+      .set({
+        url: url,
+        updatedAt: sql`NOW()`,
+      })
+      .where(
+        and(
+          eq(shortUrlsTable.shortCode, shortCode),
+          eq(shortUrlsTable.key, key)
+        )
+      )
+      .returning({
+        id: shortUrlsTable.id,
+        url: shortUrlsTable.url,
+        shortCode: shortUrlsTable.shortCode,
+        createdAt: shortUrlsTable.createdAt,
+        updatedAt: shortUrlsTable.updatedAt,
+      });
 
     return makeDatabaseResponse(result[0], null);
   } catch (error) {

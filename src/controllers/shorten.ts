@@ -94,4 +94,25 @@ export async function updateUrl(
 
     return res.status(400).json(resObj);
   }
+
+  const {
+    url,
+    shortCode,
+    key,
+  }: { url: string; shortCode: string; key: string } = matchedData(req);
+
+  const dbResponse = await database.updateUrl(shortCode, key, url);
+  if (dbResponse.error) {
+    return next(dbResponse.error);
+  }
+
+  if (!dbResponse.result) {
+    const resObj = makeResponseObj(false, "No short url exists with this key");
+
+    return res.status(404).json(resObj);
+  }
+
+  const resObj = makeResponseObj(true, "Successful", dbResponse.result);
+
+  return res.status(200).json(resObj);
 }
