@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 
 export const urlValidator = () =>
   body("url")
@@ -20,6 +20,18 @@ export const shortCodeValidator = () =>
     .isLength({ min: 6, max: 6 })
     .withMessage("shortCode length must be 6");
 
+export const keyValidator = () =>
+  query("key")
+    .trim()
+    .notEmpty()
+    .withMessage("key is required")
+    .isString()
+    .withMessage("key must be a string")
+    .isLength({ min: 32, max: 32 })
+    .withMessage("key length must be 32");
+
 export const createShortUrlValidator = () => [urlValidator()];
 
 export const getUrlValidator = () => [shortCodeValidator()];
+
+export const updateUrlValidator = () => [shortCodeValidator(), keyValidator()];

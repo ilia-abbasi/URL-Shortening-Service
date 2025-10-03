@@ -81,3 +81,17 @@ export async function getUrl(
 
   return res.status(200).json(resObj);
 }
+
+export async function updateUrl(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> {
+  const validationError = validationResult(req).array()[0];
+
+  if (validationError) {
+    const resObj = makeResponseObj(false, validationError.msg);
+
+    return res.status(400).json(resObj);
+  }
+}
