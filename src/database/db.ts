@@ -104,7 +104,7 @@ export async function deleteUrl(
         )
       );
 
-    return makeDatabaseResponse(result, null);
+    return makeDatabaseResponse(result.rowCount ? result : null, null);
   } catch (error) {
     return makeDatabaseResponse(null, error as Error);
   }

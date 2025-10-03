@@ -144,5 +144,5 @@ export async function deleteUrl(
     return res.status(404).json(resObj);
   }
 
-  return res.status(204);
+  return res.sendStatus(204);
 }
