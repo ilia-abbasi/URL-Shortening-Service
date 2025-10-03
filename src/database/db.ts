@@ -10,20 +10,27 @@ import {
 import { shortUrlsTable } from "./schema.js";
 import { customLog } from "../helpers/utils.js";
 import { and, DrizzleQueryError, eq, sql } from "drizzle-orm";
+import { PgTableWithColumns } from "drizzle-orm/pg-core/table.js";
 
+let testMode: boolean;
 let db: NodePgDatabase<Record<string, never>> & {
   $client: Pool;
 };
 
 export function connectDb(test = false) {
-  const tags: Tag[] = ["database"];
-  if (test) {
-    tags.push("test");
-  }
+  testMode = test;
 
-  db = drizzle(process.env.DATABASE_URL!);
+  db = drizzle(
+    test ? process.env.DATABASE_URL_TEST! : process.env.DATABASE_URL!
+  );
 
-  customLog(tags, "Connected via drizzle");
+  customLog("database", "Connected via drizzle", testMode);
+}
+
+export async function disconnectDb() {
+  await db.$client.end();
+
+  customLog("database", "Connection closed", testMode);
 }
 
 function makeDatabaseResponse(
@@ -31,6 +38,20 @@ function makeDatabaseResponse(
   error: DatabaseError
 ): DatabaseResponse {
   return { result, error };
+}
+
+export async function clearTable(
+  table: PgTableWithColumns<any> = shortUrlsTable
+): Promise<void> {
+  if (!testMode) {
+    return;
+  }
+
+  try {
+    await db.delete(table);
+  } catch (error) {
+    customLog(["database", "error"], (error as Error).message, testMode);
+  }
 }
 
 export async function insertShortUrl(

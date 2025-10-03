@@ -9,10 +9,12 @@
     "dev": "nodemon --exec tsx ./src/index.ts",
     "build": "tsc --build",
     "build:watch": "tsc --watch",
-    "generate": "drizzle-kit generate --name=init",
-    "migrate": "drizzle-kit migrate",
+    "generate": "drizzle-kit generate --name=init --config ./misc/drizzle.config.ts",
+    "migrate": "drizzle-kit migrate --config ./misc/drizzle.config.ts",
+    "migrate:test": "drizzle-kit migrate --config ./misc/drizzle-test.config.ts",
     "test": "jest",
-    "test:units": "jest --testPathPatterns=./src/__tests__/units"
+    "test:units": "jest --testPathPatterns=./src/__tests__/units",
+    "test:e2e": "jest --testPathPatterns=./src/__tests__/e2e"
   },
   "repository": {
     "type": "git",

@@ -10,9 +10,17 @@ const chars62 =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const chars16 = "0123456789abcdef";
 
-export function customLog(tags: Tag | Tag[], text: string): void {
+export function customLog(
+  tags: Tag | Tag[],
+  text: string,
+  haveTestTag = false
+): void {
   if (typeof tags === "string") {
     tags = [tags];
+  }
+
+  if (haveTestTag && !tags.includes("test")) {
+    tags.push("test");
   }
 
   let tagString = "";
