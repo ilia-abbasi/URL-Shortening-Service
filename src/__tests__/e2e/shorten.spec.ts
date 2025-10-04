@@ -55,6 +55,28 @@ describe("Creating a short URL", () => {
 });
 
 describe("Updating the short url", () => {
+  it("should validate key and short code", async () => {
+    let response;
+
+    response = await request(app).put(`/shorten/abcdefg?key=${key}`).send({
+      url: updatedUrl,
+    });
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain("shortCode");
+
+    response = await request(app)
+      .put(`/shorten/${shortCode}?key=invalidKey`)
+      .send({
+        url: updatedUrl,
+      });
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain("key");
+
+    response = await request(app).put(`/shorten/${shortCode}?key=${key}`);
+    expect(response.statusCode).toBe(400);
+    expect(response.body.message).toContain("url");
+  });
+
   it("should correctly match the short code with the key", async () => {
     await request(app)
       .put(`/shorten/${shortCode}?key=${differentKey}`)
