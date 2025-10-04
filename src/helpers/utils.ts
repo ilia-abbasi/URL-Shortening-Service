@@ -54,3 +54,29 @@ export function generateKey(): string {
 
   return result;
 }
+
+export function getDifferentShortCode(shortCode: string): string {
+  if (shortCode.length !== SHORT_CODE_SIZE) {
+    return shortCode;
+  }
+
+  const result = "aaaaaa";
+  if (shortCode !== result) {
+    return result;
+  }
+
+  return "aaaaab";
+}
+
+export function getDifferentKey(key: string): string {
+  if (key.length !== KEY_SIZE) {
+    return key;
+  }
+
+  const result = "q2345678901234567890123456789012";
+  if (key !== result) {
+    return result;
+  }
+
+  return "q234567890123456789012345678901a";
+}

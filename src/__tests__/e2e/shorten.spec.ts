@@ -5,9 +5,15 @@ import request from "supertest";
 
 import { createApp } from "../../app/app.js";
 import { clearTable, connectDb, disconnectDb } from "../../database/db.js";
+import { getDifferentKey, getDifferentShortCode } from "../../helpers/utils.js";
 
 let shortCode: string;
 let key: string;
+let differentShortCode: string;
+let differentKey: string;
+
+const url = "https://google.com";
+const updatedUrl = "https://example.com";
 
 const app: Application = createApp();
 connectDb(true);
@@ -36,13 +42,32 @@ describe("Creating a short URL", () => {
   });
 
   it("should successfully create a short url", async () => {
-    const url = "https://google.com";
     const response = await request(app).post("/shorten").send({ url });
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toMatchObject({ data: { url } });
 
-    shortCode = response.body.shortCode;
-    key = response.body.key;
+    shortCode = response.body.data.shortCode;
+    key = response.body.data.key;
+    differentShortCode = getDifferentShortCode(shortCode);
+    differentKey = getDifferentKey(key);
+  });
+});
+
+describe("Updating the short url", () => {
+  it("should correctly match the short code with the key", async () => {
+    await request(app)
+      .put(`/shorten/${shortCode}?key=${differentKey}`)
+      .send({
+        url: updatedUrl,
+      })
+      .expect(404);
+
+    await request(app)
+      .put(`/shorten/${differentShortCode}?key=${key}`)
+      .send({
+        url: updatedUrl,
+      })
+      .expect(404);
   });
 });
