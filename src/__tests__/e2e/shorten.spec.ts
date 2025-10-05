@@ -92,4 +92,13 @@ describe("Updating the short url", () => {
       })
       .expect(404);
   });
+
+  it("should successfully update the short url", async () => {
+    await request(app)
+      .put(`/shorten/${shortCode}?key=${key}`)
+      .send({
+        url: updatedUrl,
+      })
+      .expect(200);
+  });
 });
