@@ -12,6 +12,9 @@ Using the key, creators can edit or delete their short URLs and can also see
 their stats.  
 The API has rate limiting to prevent abuse.
 
+Read the docs
+[here](https://github.com/ilia-abbasi/URL-Shortening-Service/blob/main/misc/Documentation.md).
+
 ## Installation
 
 1. Clone the repository:
@@ -123,6 +126,5 @@ The source code is formatted with [Prettier](https://prettier.io/).
 
 ---
 
-Read the docs [here](https://example.com).  
 URL-Shortening-Service is licensed under the
 [GPL-3.0 license](https://github.com/ilia-abbasi/URL-Shortening-Service/blob/main/LICENSE).
