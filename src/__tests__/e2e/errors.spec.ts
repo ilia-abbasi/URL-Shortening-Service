@@ -59,4 +59,15 @@ describe("Getting 405 errors", () => {
     expect(allowedMethods).toContain("GET");
     expect(allowedMethods?.length).toBe(1);
   });
+
+  it("should get 405 on PUT /:shortCode", async () => {
+    const response = await request(app).delete("/aaaaaa");
+    const allowHeader = response.headers.allow;
+    const allowedMethods = allowHeader?.split(", ");
+
+    expect(response.statusCode).toBe(405);
+    expect(allowHeader).toBeDefined();
+    expect(allowedMethods).toContain("GET");
+    expect(allowedMethods?.length).toBe(1);
+  });
 });
