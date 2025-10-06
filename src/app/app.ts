@@ -1,12 +1,21 @@
 import express from "express";
 import { Application } from "express-serve-static-core";
+import rateLimit from "express-rate-limit";
 import morgan from "morgan";
 
 import mainRouter from "../routes/main.js";
-import { generalErrorHandler } from "../helpers/response.js";
+import { generalErrorHandler, limitResponse } from "../helpers/response.js";
 
 export function createApp(): Application {
   const app: Application = express();
+
+  const limiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 30,
+    message: limitResponse,
+  });
+
+  app.use(limiter);
 
   app.use(morgan(":method :url :status - :response-time ms"));
   app.use(express.json());
