@@ -102,3 +102,32 @@ describe("Updating the short url", () => {
       .expect(200);
   });
 });
+
+describe("Getting short url info", () => {
+  it("should successfully get the updated url", async () => {
+    const response = await request(app).get(`/shorten/${shortCode}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.url).toBe(updatedUrl);
+  });
+
+  it("should deny unauthorized access to stats", async () => {
+    await request(app)
+      .get(`/shorten/${shortCode}/stats?key=${differentKey}`)
+      .expect(404);
+
+    await request(app)
+      .get(`/shorten/${differentShortCode}/stats?key=${key}`)
+      .expect(404);
+  });
+
+  it("should successfully get the stats", async () => {
+    const response = await request(app).get(
+      `/shorten/${shortCode}/stats?key=${key}`
+    );
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.url).toBe(updatedUrl);
+    expect(response.body.data.views).toBe(0);
+  });
+});
