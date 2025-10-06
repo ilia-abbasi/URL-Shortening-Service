@@ -131,3 +131,22 @@ describe("Getting short url info", () => {
     expect(response.body.data.views).toBe(0);
   });
 });
+
+describe("Visiting the short url", () => {
+  it("should not redirect when short code is invalid", async () => {
+    await request(app).get(`/${differentShortCode}`).expect(404);
+  });
+
+  it("should successfully redirect to the original url", async () => {
+    await request(app).get(`/${shortCode}`).expect(301);
+  });
+
+  it("should increment views when visited", async () => {
+    const response = await request(app).get(
+      `/shorten/${shortCode}/stats?key=${key}`
+    );
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.views).toBe(1);
+  });
+});

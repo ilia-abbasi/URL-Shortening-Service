@@ -33,5 +33,5 @@ export async function redirectUrl(
 
   const { url } = dbResponse.result as ShortUrl;
 
-  res.status(301).redirect(url);
+  res.redirect(301, url);
 }
