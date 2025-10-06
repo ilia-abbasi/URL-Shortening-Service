@@ -1,6 +1,6 @@
 import "../../helpers/load_env.js";
 
-import { Application } from "express";
+import { Application } from "express-serve-static-core";
 import request from "supertest";
 
 import { createApp } from "../../app/app.js";
