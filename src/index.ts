@@ -1,6 +1,7 @@
 import "./helpers/load_env.js";
 
 import { Application } from "express-serve-static-core";
+
 import { createApp } from "./app/app.js";
 import { customLog } from "./helpers/utils.js";
 import { connectDb } from "./database/db.js";

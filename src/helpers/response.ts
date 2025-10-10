@@ -19,7 +19,7 @@ export function makeResponseObj(
   return { success, message, data };
 }
 
-export function send404Error(req: Request, res: Response): Response {
+export function send404Error(_req: Request, res: Response): Response {
   const resObj = makeResponseObj(false, "Not found");
 
   return res.status(404).json(resObj);

@@ -1,8 +1,8 @@
 import express from "express";
 
-import { redirectUrlValidator } from "../helpers/validation";
-import { redirectUrl } from "../controllers/redirect";
-import { send405Error } from "../helpers/response";
+import { redirectUrlValidator } from "../helpers/validation.js";
+import { redirectUrl } from "../controllers/redirect.js";
+import { send405Error } from "../helpers/response.js";
 
 const router = express.Router();
 

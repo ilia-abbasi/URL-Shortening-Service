@@ -1,4 +1,5 @@
 import { QueryResult } from "pg";
+
 import { shortUrlsTable } from "../database/schema.js";
 
 export interface ResponseObj {

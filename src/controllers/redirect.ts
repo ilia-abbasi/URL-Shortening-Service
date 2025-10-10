@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express-serve-static-core";
 import { matchedData, validationResult } from "express-validator";
 
 import { makeResponseObj } from "../helpers/response.js";
-import { DatabaseResponse, ShortUrl } from "../helpers/types.js";
+import { ShortUrl } from "../helpers/types.js";
 import * as database from "../database/db.js";
 
 export async function redirectUrl(

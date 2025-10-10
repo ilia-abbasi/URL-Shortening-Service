@@ -1,16 +1,16 @@
 import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
+import { and, eq, sql } from "drizzle-orm";
+import { PgTableWithColumns } from "drizzle-orm/pg-core/table";
+
 import {
   DatabaseError,
   DatabaseResponse,
   DatabaseResult,
   ShortUrl,
-  Tag,
 } from "../helpers/types.js";
 import { shortUrlsTable } from "./schema.js";
 import { customLog } from "../helpers/utils.js";
-import { and, DrizzleQueryError, eq, sql } from "drizzle-orm";
-import { PgTableWithColumns } from "drizzle-orm/pg-core/table.js";
 
 let testMode: boolean;
 let db: NodePgDatabase<Record<string, never>> & {
